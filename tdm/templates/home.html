@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="display-1">Welcome Home</h1>
+
+
+  <table class='table'>
+     <thead class=thead-dark>
+     <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Address</th>
+     </tr>
+     </thead>
+     <tbody>
+{%for row in rows%}
+        <tr>
+           <td >{{row.ID}}</td>
+           <td>{{row.name}}</td>
+           <td>{{row.phone_num}}</td>
+           <td>{{row.address}}</td>
+        </tr>
+     {% endfor %} 
+  	</tbody>
+  </table>
+
+{% endblock content %}

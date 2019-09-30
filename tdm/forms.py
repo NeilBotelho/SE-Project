@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField,BooleanField
+from wtforms import StringField,PasswordField,SubmitField,BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length,EqualTo,ValidationError
 from tdm.models import Admin
 
@@ -32,3 +32,9 @@ class RegistrationForm(FlaskForm):
 # 					self.qType='t'
 # 				# else:
 # 					# raise ValidationError("No such entry")
+
+class NewEntryForm(FlaskForm):
+	phone_num=IntegerField("Phone Number",validators=[DataRequired(),Length(min=5,max=14)])
+	name=StringField("Name",validators=[DataRequired(),Length(min=2,max=50)])
+	address=StringField("Address",validators=[DataRequired(),Length(min=2,max=50)])
+	submit=SubmitField('Add Entry')

@@ -37,7 +37,10 @@
           </li>
           {%if current_user.is_authenticated %}
           <li class="nav-item active">
-            <a class="nav-link" href="{{url_for('result')}}">Register <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{url_for('newEntry')}}">Admininistrate <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('register')}}">Register <span class="sr-only">(current)</span></a>
           </li>{%endif%}
           <li class="nav-item">
           {%if current_user.is_authenticated %}
@@ -48,14 +51,12 @@
           </li>
         </ul>
       </div>
-<form class="form-inline my-2 my-lg-0", action="{{url_for('result')}}",method='POST',id='tableSearch'>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search",name=Search>
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
     </nav>
 
 
-  
+
+
+
     <div class="container" ,>
       {%with messages = get_flashed_messages(with_categories=true) %}
         {%if messages%}
@@ -72,7 +73,7 @@
     </div>
 
     <!-- Optional JavaScript -->
-<!-- <script type=texxt/javascript, src="{{ url_for('static', filename='sort-table.js') }}" /> -->
+<script src="{{ url_for('static', filename='sorttable.js') }}"></script> 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

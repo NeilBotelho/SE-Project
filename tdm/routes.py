@@ -1,14 +1,28 @@
 from flask import Flask, redirect, url_for, flash, request, render_template,session
-from tdm.forms import LoginForm, RegistrationForm
-from tdm.models import Admin, Entry, EntryTable,SortableTable
+from tdm.forms import LoginForm, RegistrationForm, NewEntryForm, SearchForm, EditEntryForm
+from tdm.models import Admin, Entry
 from tdm import app, db,bcrypt
 from flask_login import login_user, current_user, logout_user,login_required
 
-@app.route('/')
+@app.route('/',methods=['POST','GET'])
 def home():
 	rows=Entry.query.all()
-
-	return render_template('home.html',title='Welcome',rows=rows) 
+	form=SearchForm()
+	if form.validate_on_submit():
+		if form.searchTerm.data=="":
+			return render_template('home.html',title='Welcome',rows=rows,form=form)
+		rows=[]
+		NameRows=Entry.query.filter_by(name=form.searchTerm.data.strip())
+		AddressRows=Entry.query.filter_by(address=form.searchTerm.data.strip())
+		PhoneRows=[]
+		try:
+			PhoneRows=Entry.query.filter_by(phone_num=int(form.searchTerm.data.strip()))
+		except:
+			pass
+		for field in (NameRows,AddressRows, PhoneRows):
+			for data in field:
+				rows.append(data)
+	return render_template('home.html',title='Welcome',rows=rows,form=form) 
 
 @app.route('/about')
 def about():
@@ -22,7 +36,7 @@ def register():
 	form=RegistrationForm()
 	if form.validate_on_submit():
 		hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-		new_admin=Admin(username=form.username.data,password=hashed_password)
+		new_admin=Admin(username=form.username.data.lower(),password=hashed_password)
 		db.session.add(new_admin)
 		db.session.commit()
 		flash("Account created for "+str(form.username.data)+"!. You can now log in" ,"success")
@@ -36,7 +50,7 @@ def login():
 		return redirect(url_for("home"))
 	form=LoginForm()
 	if form.validate_on_submit():
-		admin=Admin.query.filter_by(username=form.username.data).first()
+		admin=Admin.query.filter_by(username=form.username.data.lower()).first()
 		if(admin and bcrypt.check_password_hash(admin.password,form.password.data)):
 			login_user(admin,remember=form.remember.data)
 			return redirect(url_for("home"))
@@ -54,13 +68,37 @@ def logout():
 		flash("You are not logged in","danger")
 		return redirect(url_for('home'))
 
-@app.route('/result',methods=['POST','GET'])
-def result():
-	return  request.args.get('Search', '')
-	return str(request.form)
-	# return request.form['tableSearch']
-	# return render_template('results.html',title=%seach)
-@app.route('/addentry')
+
+
+@app.route('/admin/newentry',methods=['GET','POST'])
 @login_required
-def add():
-	return render_template('new_entry.html',title="new")
+def newEntry():
+	form=NewEntryForm()
+	if form.validate_on_submit():
+		entry=Entry(phone_num=form.phone_num.data,name=form.name.data.lower(),address=form.address.data.lower())
+		db.session.add(entry)
+		db.session.commit()
+		flash("Entry has been added","success")
+		if(not form.moreThanOneEntry.data):
+			return redirect(url_for('home'))
+		else:
+			return redirect(url_for('newEntry'))
+	rows=Entry.query.all()
+	# flash(form.ID.data)
+	return render_template('newEntry.html',title="new",form=form,rows=rows)
+
+@app.route('/admin/editentry',methods=['POST','GET'])
+@login_required
+def editEntry():
+	form=EditEntryForm()
+	if form.validate_on_submit():
+		entry=Entry.query.filter_by(ID=form.ID.data).first()
+		entry.phone_num=form.phone_num.data
+		entry.name=form.name.data.lower()
+		entry.address=form.address.data.lower()
+		db.session.commit()
+		flash("The entry has been updated","success")
+		return redirect(url_for('home'))
+	rows=Entry.query.all()
+	return render_template('update.html',title="Update entry",form=form,rows=rows)		
+

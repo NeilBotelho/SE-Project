@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section, update">
+  <form method="POST" action="">
+    {{form.hidden_tag()}}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb4">Update Entry</legend>
+       <div class="form-group">
+                    {{ form.ID.label(class="form-control-label") }}
+
+                    {% if form.ID.errors %}
+                        {{ form.ID(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.ID.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.ID(class="form-control form-control-lg") }}
+                    {% endif %}
+      </div>
+      <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg") }}
+                    {% endif %}
+      </div>
+      <div class="form-group">
+                    {{ form.phone_num.label(class="form-control-label") }}
+                    {% if form.phone_num.errors %}
+                        {{ form.phone_num(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone_num.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.phone_num(class="form-control form-control-lg") }}
+                    {% endif %}
+      </div>
+      <div class="form-group">
+                    {{ form.address.label(class="form-control-label") }}
+                    {% if form.address.errors %}
+                        {{ form.address(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.address.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.address(class="form-control form-control-lg") }}
+                    {% endif %}
+      </div>
+      <div class="form-check">
+                    {{ form.moreThanOneEntry(class="form-check-input") }}
+                    {{ form.moreThanOneEntry.label(class="form-check-label") }}
+                </div>
+    </fieldset>
+    <div class="form-group">
+      {{form.submit(class="btn btn-outline-info")}}
+    </div>
+  </form>
+</div>
+
+
+
+
+
+  <table class='sortable table'>
+     <thead class=thead-dark>
+     <tr>
+        <th scope="col">IDs</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Address</th>
+     </tr>
+     </thead>
+     <tbody>
+{%for row in rows%}
+        <tr>
+           <td >{{row.ID}}</td>
+           <td>{{row.name}}</td>
+           <td>{{row.phone_num}}</td>
+           <td>{{row.address}}</td>
+        </tr>
+     {% endfor %} 
+  	</tbody>
+  </table>
+
+{% endblock content %}

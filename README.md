@@ -16,29 +16,6 @@
 # SE-Project
 Flask Pharmacy stock manager website with an admin system.
 
-# To run the file
-First make sure you have all the requriements by navigating to the folder where this file is in the terminal or windows command line and then type
-```
-pip install -r requirements
-```
-Now to run the program type
-```
-python run.py
-```
-This will start the app in your terminal and give you a variety of messages there. One of them will be something like 
-Running on http://127.0.0.1:5000/
-Copy the http url and paste it in your browser(leave the terminal open with the program still running). You will be redirected to your web page home
-## Frontend:
-
-	- HTML, CSS, Bootstrap 4 & JavaScript.
-
-## Backend:
-
-	- Python, Flask
-
-## Database:
-
-	- SQLite, SQL Alchemy
 
 # Further Work
 
@@ -75,7 +52,7 @@ and all the css and javascript files you use need to be put in the static folder
 I have put my own main.css file there(you can add additional css rules here or in another file but if its in another file you have to add the link tag to that file in the layout folder). 
 
 
-### Styling
+## Styling
 I am really terrible at styling. If you want to see just how terrible I am at styling go to te layout page and remove any lines that contain bootstrap in them and reload your page. That is what i styled. 
 I used bootstrap to do most of the styling for me. Bootstrap is a css stylesheet that is predefined for you to use. 
 If you looked through my html, you would have noticed that almost everything has multiple class, like in home.html, my h1 tag has ben given both the display-1 and title class. The display-1 class is predefined by bootstrap and so it is styled according to that. The navbar is also like this. I just wrote a list of my links and put the appropriate bootstrap class for the links and i got the B-E-A-U-tiful navbar that you see on the page. 
@@ -89,13 +66,13 @@ _Note_
 I have downloaded and linked the bootstrap css, bootstrap javascript and the jquery files so that you dont need internet connection to download those libraries everytime to see what your webpage looks like.
 
 
-### The Forms
-Flask doesn't use normal html forms, it uses a python object to make using forms easier in the backend. If you look at any page using a form, like the login page, the registration page, or even the search bar, theres a lot of complicated python and jinja syntax that you dont really need to understand. To style them just give the <div> tag the they are in a class and put whatever style you want. 
+## The Forms
+Flask doesn't use normal html forms for input, it uses a python object to make using forms easier in the backend. If you look at any page using a form, like the login page, the registration page, or even the search bar, theres a lot of complicated python and jinja syntax that you dont really need to understand. To style them just give the <div> tag the they are in a class and put whatever style you want. 
 The big text at the top of a form is in the legend tag.
 
 If you want to change the text that appears above a particular input field in a form then you need to change the label of that form element in the forms.py file (Mayank should know how to do this by now)
 
-### Short note on the tables
+## Short note on the tables
 I made a template on tables so that I dont have to update each page every time i want to make a change to the table. The tamplate is in the table.html file and to include it in a page i use the 
 ```
 {% include 'table.html %}
@@ -106,5 +83,5 @@ _Note_
 A cool feature that i added was that I used a javascript library that i found to sort tables synamically in the browser. So if you click on the header of a column in the table the table will sort according to that table. Now for this to work the table has to have the sortable class, So don't remove it if you want this feature. 
 
 
-### To do 
+## To do 
 The delete functionality is still remaining. Havent learned how yet

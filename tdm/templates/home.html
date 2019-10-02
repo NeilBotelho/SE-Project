@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1 class="display-1">Welcome Home</h1>
+<h1 class="display-1 title  ">Welcome Home</h1>
 
 
 
@@ -24,30 +24,9 @@
 
 
 
+{#  This below include statement inserts the table i defined in the table.html file here. This makes it so that if i have to hange something i dont have to change it in all pages#}
 
-  <table class='sortable table'>
-     <thead class=thead-dark>
-     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">MFD</th>
-        <th scope="col">EXP</th>
-        <th scope="col">Number of units in stock</th>
-        <th scope="col">Price</th>
-     </tr>
-     </thead>
-     <tbody>
-{%for row in rows%}
-        <tr>
-           <td >{{row.ID}}</td>
-           <td>{{row.name}}</td>
-           <td>{{row.MFD}}</td>
-           <td>{{row.EXP}}</td>
-           <td>{{row.units}}</td>
-           <td>{{row.price}}</td>
-        </tr>
-     {% endfor %} 
-    </tbody>
-  </table>
+{%include'table.html'%}
+
 
 {% endblock content %}

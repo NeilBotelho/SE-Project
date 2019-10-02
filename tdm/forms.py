@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField,BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length,EqualTo,ValidationError
-from tdm.models import Admin, Entry
+from tdm.models import Admin, Medicine
 from tdm import db
 # from flask import flash
 class LoginForm(FlaskForm):
@@ -37,31 +37,24 @@ class SearchForm(FlaskForm):
 	submit=SubmitField('Add Entry')
 
 class NewEntryForm(FlaskForm):
-	ID=IntegerField("phone_num")
-	phone_num=IntegerField("Phone Number",validators=[DataRequired()])
+	ID=IntegerField("ID")
 	name=StringField("Name",validators=[DataRequired(),Length(min=2,max=50)])
-	address=StringField("Address",validators=[DataRequired(),Length(min=2,max=50)])
+	MFD=StringField("Manufacture Date",validators=[DataRequired(),Length(min=2,max=10)])
+	EXP=StringField("Expiry Date",validators=[DataRequired(),Length(min=2,max=10)])
+	units=IntegerField("Number of Units in Stock",validators=[DataRequired(),Length(min=0)])
+	price=IntegerField("Price",validators=[DataRequired(),Length(min=0)])
 	moreThanOneEntry=BooleanField('More Than One New Entry')
-	submit=SubmitField('Add Entry')
-	def validate_phone_num(self,phone_num):
-		phone_len=len(str(phone_num.data))
-		if(phone_len>11 or phone_len <8):
-			raise ValidationError('Invalid Phone number')
-		entry=db.session.query(Entry.phone_num).filter_by(phone_num=phone_num.data)
-		if(entry):
-			raise ValidationError('Phone Number already exists in directory. \nPlease ask an admin to edit the entry if necessary.')
+	submit=SubmitField('Add to Database')
+
 class EditEntryForm(FlaskForm):
-	ID=IntegerField("ID of Entry to be edited",validators=[DataRequired()])
-	phone_num=IntegerField("Phone Number",validators=[DataRequired()])
+	ID=IntegerField("ID of entry to be edited",validators=[DataRequired()])
 	name=StringField("Name",validators=[DataRequired(),Length(min=2,max=50)])
-	address=StringField("Address",validators=[DataRequired(),Length(min=2,max=50)])
-	moreThanOneEntry=BooleanField('More Than One New Entry')
-	submit=SubmitField('Write Changes')
-	def validate_phone_num(self,phone_num):
-		phone_len=len(str(phone_num.data))
-		if(phone_len>11 or phone_len <8):
-			raise ValidationError('Invalid Phone number')
-		def validate_ID(self,ID):
-			entry=db.session.query(Entry.ID).filter_by(ID=ID.data)
-			if(type(entry)!=type([1])):
-				raise ValidationError("No such ID exists in directory")
+	MFD=StringField("Manufacture Date",validators=[DataRequired(),Length(min=2,max=10)])
+	EXP=StringField("Expiry Date",validators=[DataRequired(),Length(min=2,max=10)])
+	units=IntegerField("Number of Units in Stock",validators=[DataRequired(),Length(min=0)])
+	price=IntegerField("Price",validators=[DataRequired(),Length(min=0)])
+	submit=SubmitField('Write changes to database')
+	def validate_ID(self,ID):
+		entry=db.session.query(Medicine.ID).filter_by(ID=ID.data)
+		if(type(entry)!=type([1])):
+			raise ValidationError("No such ID exists in directory")

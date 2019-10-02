@@ -65,15 +65,19 @@ If you want to use bootstrap on an HTML item, just google "Bootstrap paragraph" 
 
 If you want to put a custom style on an HTML item just put a unique class on it and define its style in the main.css file in the static folder.
 
-_Note_ 
+### __Note__
+
 I have downloaded and linked the bootstrap CSS, bootstrap javascript and the jquery files so that you don't need an internet connection to download those libraries every time to see what your webpage looks like.
 
 
 ## The Forms
 Flask doesn't use normal HTML forms for input, it uses a python object to make using forms easier in the backend. If you look at any page using a form, like the login page, the registration page, or even the search bar, there's a lot of complicated python and jinja syntax that you don't really need to understand. To style them just give the <div> tag that they are in a class and put whatever style you want. 
-The big text at the top of a form can be changed by changing the text in the legend tag.
+
 
 If you want to change the text that appears above a particular input field in a form then you need to change the label of that form element in the forms.py file (Mayank should know how to do this by now)
+
+The big text at the top of a form can be changed by changing the text in the legend tag.
+
 
 ## Short note on the tables
 I made a template on tables so that I don't have to update each page every time I want to make a change to the table. The template is in the table.html file and to include it in a page I just add the 
@@ -82,7 +86,8 @@ I made a template on tables so that I don't have to update each page every time 
 ```
 command wherever in the HTML page I want the table to appear. If you want to style the table you can style it in the table.html file, and if you want to style it only for one particular page you can copy-paste the code in the table.html file into that page(after removing the extends and block content lines) and style it there. 
 
-_Note_
+### __Note__
+
 A cool feature that I added was that I used a javascript library that I found to sort tables dynamically in the browser. So if you click on the header of a column in the table the table will sort according to that table. Now for this to work the table has to have the sortable class, So don't remove it if you want this feature. 
 
 

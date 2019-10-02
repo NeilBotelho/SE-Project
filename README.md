@@ -1,7 +1,18 @@
 # SE-Project
 Flask Pharmacy stock manager website with an admin system.
 
-# Uses
+# To run the file
+First make sure you have all the requriements by navigating to the folder where this file is in the terminal or windows command line and then type
+```
+pip install -r requirements
+```
+Now to run the program type
+```
+python run.py
+```
+This will start the app in your terminal and give you a variety of messages there. One of them will be something like 
+Running on http://127.0.0.1:5000/
+Copy the http url and paste it in your browser(leave the terminal open with the program still running). You will be redirected to your web page home
 ## Frontend:
 
 	- HTML, CSS, Bootstrap 4 & JavaScript.
@@ -78,3 +89,7 @@ command. If you want to style the table you can style it in the table.html file,
 
 _Note_
 A cool feature that i added was that I used a javascript library that i found to sort tables synamically in the browser. So if you click on the header of a column in the table the table will sort according to that table. Now for this to work the table has to have the sortable class, So don't remove it if you want this feature. 
+
+
+### To do 
+The delete functionality is still remaining. Havent learned how yet

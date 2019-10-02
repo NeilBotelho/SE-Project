@@ -6,23 +6,7 @@ from flask_login import login_user, current_user, logout_user,login_required
 
 @app.route('/',methods=['POST','GET'])
 def home():
-	rows=Entry.query.all()
-	form=SearchForm()
-	if form.validate_on_submit():
-		if form.searchTerm.data=="":
-			return render_template('home.html',title='Welcome',rows=rows,form=form)
-		rows=[]
-		NameRows=Entry.query.filter_by(name=form.searchTerm.data.strip())
-		AddressRows=Entry.query.filter_by(address=form.searchTerm.data.strip())
-		PhoneRows=[]
-		try:
-			PhoneRows=Entry.query.filter_by(phone_num=int(form.searchTerm.data.strip()))
-		except:
-			pass
-		for field in (NameRows,AddressRows, PhoneRows):
-			for data in field:
-				rows.append(data)
-	return render_template('home.html',title='Welcome',rows=rows,form=form) 
+	return "Home" 
 
 @app.route('/about')
 def about():

@@ -1,3 +1,3 @@
 from tdm import app
-if __name__ == '__main__':
-   app.run(debug = True)
+if _name_ == '__main__':
+   app.run()

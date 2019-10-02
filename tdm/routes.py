@@ -1,9 +1,9 @@
 from flask import Flask, redirect, url_for, flash, request, render_template,session
 from tdm.forms import LoginForm, RegistrationForm, NewEntryForm, SearchForm, EditEntryForm
-from tdm.models import Admin, Entry
+from tdm.models import Admin, Medicine
 from tdm import app, db,bcrypt
 from flask_login import login_user, current_user, logout_user,login_required
-
+tempadmin='bitchboy'
 @app.route('/',methods=['POST','GET'])
 def home():
 	rows=Entry.query.all()
@@ -12,21 +12,24 @@ def home():
 		if form.searchTerm.data=="":
 			return render_template('home.html',title='Welcome',rows=rows,form=form)
 		rows=[]
-		NameRows=Entry.query.filter_by(name=form.searchTerm.data.strip())
-		AddressRows=Entry.query.filter_by(address=form.searchTerm.data.strip())
-		PhoneRows=[]
+		NameRows=Medicine.query.filter_by(name=form.searchTerm.data.strip())
+		MfdRows=Medicine.query.filter_by(MFD=form.searchTerm.data.strip())
+		ExpRows=Medicine.query.filter_by(EXP=form.searchTerm.data.strip())
+		UnitsRows=[]
+		PriceRows=[]
 		try:
-			PhoneRows=Entry.query.filter_by(phone_num=int(form.searchTerm.data.strip()))
+			UnitsRows=Medicine.query.filter_by(units=int(form.searchTerm.data.strip()))
+			PriceRows=Medicine.query.filter_by(price=int(form.searchTerm.data.strip()))
 		except:
 			pass
-		for field in (NameRows,AddressRows, PhoneRows):
+		for field in (NameRows,MfdRows,ExpRows,UnitsRows,PriceRows):
 			for data in field:
 				rows.append(data)
-	return render_template('home.html',title='Welcome',rows=rows,form=form) 
+	return render_template('home.html',title='Welcome to the phramacy',rows=rows,form=form) 
 
 @app.route('/about')
 def about():
-	return "About"
+	return render_template('about.html',title='About') 
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -75,15 +78,15 @@ def logout():
 def newEntry():
 	form=NewEntryForm()
 	if form.validate_on_submit():
-		entry=Entry(phone_num=form.phone_num.data,name=form.name.data.lower(),address=form.address.data.lower())
-		db.session.add(entry)
+		medicine=Medicine(MFD=form.MFD.data,EXP=form.EXP.data,name=form.name.data.lower(),units=form.units.data,price=form.price.data)
+		db.session.add(medicine)
 		db.session.commit()
-		flash("Entry has been added","success")
+		flash("Medicine has been added","success")
 		if(not form.moreThanOneEntry.data):
 			return redirect(url_for('home'))
 		else:
 			return redirect(url_for('newEntry'))
-	rows=Entry.query.all()
+	rows=Medicine.query.all()
 	# flash(form.ID.data)
 	return render_template('newEntry.html',title="new",form=form,rows=rows)
 
@@ -92,13 +95,13 @@ def newEntry():
 def editEntry():
 	form=EditEntryForm()
 	if form.validate_on_submit():
-		entry=Entry.query.filter_by(ID=form.ID.data).first()
-		entry.phone_num=form.phone_num.data
-		entry.name=form.name.data.lower()
-		entry.address=form.address.data.lower()
+		medicine=Medicine.query.filter_by(ID=form.ID.data).first()
+		medicine.phone_num=form.phone_num.data
+		medicine.name=form.name.data.lower()
+		medicine.address=form.address.data.lower()
 		db.session.commit()
 		flash("The entry has been updated","success")
 		return redirect(url_for('home'))
-	rows=Entry.query.all()
+	rows=Medicine.query.all()
 	return render_template('update.html',title="Update entry",form=form,rows=rows)		
 

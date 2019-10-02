@@ -5,8 +5,7 @@ from tdm.models import Admin, Entry
 from tdm import db
 # from flask import flash
 class LoginForm(FlaskForm):
-	username=StringField('Username',
-		validators=[DataRequired(),Length(min=2,max=20)])
+	username=StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
 	password=PasswordField('Password',validators=[DataRequired(),Length(min=5,max=20)])
 	remember=BooleanField('Remember me')
 	submit=SubmitField('Login')

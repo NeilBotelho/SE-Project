@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1 class="display-1">Welcome Home</h1>
+
+
+
+
 <form method="POST" action="">
     {{form.hidden_tag()}}
 <fieldset class=form-group><div class="form-group">
@@ -17,26 +21,11 @@
       {% endif %}
   </div></fieldset>
   </form>
-    {#<form method="POST" action="">
-    {{form.hidden_tag()}}
-    <fieldset class="form-group">
-  <div class="form-group">
-      {{ form.searchTerm.label(class="form-control-label") }}
-      {% if form.searchTerm.errors %}
-          {{ form.searchTerm(class="form-control form-control-lg is-invalid") }}
-          <div class="invalid-feedback">
-              {% for error in form.searchTerm.errors %}
-                  <span>{{ error }}</span>
-              {% endfor %}
-          </div>
-      {% else %}
-          {{ form.searchTerm(class="form-control form-control-lg") }}
-      {% endif %}
-  </div></fieldset>
-   <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
-   </div></form>
-</div> #}
+
+
+
+
+
   <table class='sortable table'>
      <thead class=thead-dark>
      <tr>

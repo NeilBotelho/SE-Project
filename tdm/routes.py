@@ -42,8 +42,8 @@ def register():
 		new_admin=Admin(username=form.username.data.lower(),password=hashed_password)
 		db.session.add(new_admin)
 		db.session.commit()
-		flash("Account created for "+str(form.username.data)+"!. You can now log in" ,"success")
-		return redirect(url_for('login'))
+		flash("Account created for "+str(form.username.data)+"!" ,"success")
+		return redirect(url_for('home'))
 	return render_template('register.html',title='Sign Up',form=form)
 
 @app.route('/login',methods=['GET','POST'])

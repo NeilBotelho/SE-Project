@@ -6,7 +6,7 @@ from flask_login import login_user, current_user, logout_user,login_required
 tempadmin='bitchboy'
 @app.route('/',methods=['POST','GET'])
 def home():
-	rows=Entry.query.all()
+	rows=Medicine.query.all()
 	form=SearchForm()
 	if form.validate_on_submit():
 		if form.searchTerm.data=="":

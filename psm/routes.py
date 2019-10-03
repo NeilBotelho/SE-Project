@@ -81,13 +81,12 @@ def newEntry():
 		medicine=Medicine(MFD=form.MFD.data,EXP=form.EXP.data,name=form.name.data.lower(),units=form.units.data,price=form.price.data)
 		db.session.add(medicine)
 		db.session.commit()
-		flash("Medicine has been added","success")
+		flash("Entry has been added to database.","success")
 		if(not form.moreThanOneEntry.data):
 			return redirect(url_for('home'))
 		else:
 			return redirect(url_for('newEntry'))
 	rows=Medicine.query.all()
-	# flash(form.ID.data)
 	return render_template('newEntry.html',title="new",form=form,rows=rows)
 
 @app.route('/admin/editentry',methods=['POST','GET'])

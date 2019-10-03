@@ -20,18 +20,9 @@ class RegistrationForm(FlaskForm):
 		admin=Admin.query.filter_by(username=username.data).first()
 		if admin:
 			raise ValidationError('Username already exists. Choose another one.')
-# class SearchForm(FlaskForm):
-# 	searchterm=StringField('query',validators=[Length(max=21)])
-# 	qType='n'
-# 	def validate_type(self):
-# 		result=Entry.query.filter_by(username=searchterm.strip()).first()
-# 		if(result):
-# 			try:
-# 				result=Entry.query.filter_by(int(searchterm.strip())).first()
-# 				if(result):
-# 					self.qType='t'
-# 				# else:
-# 					# raise ValidationError("No such entry")
+
+
+
 class SearchForm(FlaskForm):
 	searchTerm=StringField('Search',validators=[Length(max=21)])
 	submit=SubmitField('Add Entry')
@@ -41,8 +32,8 @@ class NewEntryForm(FlaskForm):
 	name=StringField("Name",validators=[DataRequired(),Length(min=2,max=50)])
 	MFD=StringField("Manufacture Date",validators=[DataRequired(),Length(min=2,max=10)])
 	EXP=StringField("Expiry Date",validators=[DataRequired(),Length(min=2,max=10)])
-	units=IntegerField("Number of Units in Stock",validators=[DataRequired(),Length(min=0)])
-	price=IntegerField("Price",validators=[DataRequired(),Length(min=0)])
+	units=IntegerField("Number of Units in Stock",validators=[DataRequired()])
+	price=IntegerField("Price",validators=[DataRequired()])
 	moreThanOneEntry=BooleanField('More Than One New Entry')
 	submit=SubmitField('Add to Database')
 
@@ -51,8 +42,8 @@ class EditEntryForm(FlaskForm):
 	name=StringField("Name",validators=[DataRequired(),Length(min=2,max=50)])
 	MFD=StringField("Manufacture Date",validators=[DataRequired(),Length(min=2,max=10)])
 	EXP=StringField("Expiry Date",validators=[DataRequired(),Length(min=2,max=10)])
-	units=IntegerField("Number of Units in Stock",validators=[DataRequired(),Length(min=0)])
-	price=IntegerField("Price",validators=[DataRequired(),Length(min=0)])
+	units=IntegerField("Number of Units in Stock",validators=[DataRequired()])
+	price=IntegerField("Price",validators=[DataRequired()])
 	submit=SubmitField('Write changes to database')
 	def validate_ID(self,ID):
 		entry=db.session.query(Medicine.ID).filter_by(ID=ID.data)

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="display-1 title  ">Welcome </h1>
+
+
+
+
+<form method="POST" action="">
+    {{form.hidden_tag()}}
+<fieldset class=form-group><div class="form-group">
+      {{ form.searchTerm.label(class="form-control-label, search") }}
+      {% if form.searchTerm.errors %}
+          {{ form.searchTerm(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.searchTerm.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.searchTerm(class="form-control form-control-lg") }}
+      {% endif %}
+  </div></fieldset>
+  </form>
+
+
+
+{#  This below include statement inserts the table i defined in the table.html file here. This makes it so that if i have to hange something i dont have to change it in all pages#}
+
+{%include'table.html'%}
+
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{t}}</h1>
+<div class="content-section, update">
+  <form method="POST" action="">
+    {{deleteForm.hidden_tag()}}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb4">Delete Entry</legend>
+
+       <div class="form-group">
+                    {{ deleteForm.ID.label(class="form-control-label") }}
+
+                    {% if deleteForm.ID.errors %}
+                        {{ deleteForm.ID(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in deleteForm.ID.errors %}
+                                <span>{{ error }}</span>1
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ deleteForm.ID(class="form-control form-control-lg") }}
+                    {% endif %}
+      </div>
+
+      <div class="form-check">
+                    {{ deleteForm.moreThanOneEntry(class="form-check-input") }}
+                    {{ deleteForm.moreThanOneEntry.label(class="form-check-label") }}
+                </div>
+    </fieldset>
+    <div class="form-group">
+      {{deleteForm.submit(class="btn btn-outline-info")}}
+    </div>
+  </form>
+</div>
+
+
+
+
+  <table class='sortable table'>
+     <thead class=thead-dark>
+     <tr>
+        <th scope="col">IDs</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Address</th>
+     </tr>
+     </thead>
+     <tbody>
+{%for row in rows%}
+        <tr>
+           <td >{{row.ID}}</td>
+           <td>{{row.name}}</td>
+           <td>{{row.phone_num}}</td>
+           <td>{{row.address}}</td>
+        </tr>
+     {% endfor %}
+  	</tbody>
+  </table>
+
+{% endblock content %}

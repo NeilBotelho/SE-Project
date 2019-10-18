@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, flash, request, render_template,session
-from tdm.forms import LoginForm, RegistrationForm, NewEntryForm, SearchForm, EditEntryForm
+from tdm.forms import LoginForm, RegistrationForm, NewEntryForm, SearchForm, EditEntryForm, DeleteForm
 from tdm.models import Admin, Entry
 from tdm import app, db,bcrypt
 from flask_login import login_user, current_user, logout_user,login_required
@@ -22,7 +22,7 @@ def home():
 		for field in (NameRows,AddressRows, PhoneRows):
 			for data in field:
 				rows.append(data)
-	return render_template('home.html',title='Welcome',rows=rows,form=form) 
+	return render_template('home.html',title='Welcome',rows=rows,form=form)
 
 @app.route('/about')
 def about():
@@ -100,5 +100,37 @@ def editEntry():
 		flash("The entry has been updated","success")
 		return redirect(url_for('home'))
 	rows=Entry.query.all()
-	return render_template('update.html',title="Update entry",form=form,rows=rows)		
+	return render_template('update.html',title="Update entry",form=form,rows=rows)
 
+@app.route('/admin/deleteentry',methods=['POST','GET'])
+@login_required
+def deleteEntry():
+	rows=Entry.query.all()
+	deleteForm=DeleteForm()
+	if deleteForm.validate_on_submit():
+		entry=Entry.query.filter_by(ID=int(deleteForm.ID.data)).first()
+		if(not entry):
+			flash("Given id does not exist","danger")
+			return redirect(url_for('home'))
+		db.session.delete(entry)
+		db.session.commit()
+
+		flash("Entry "+str(deleteForm.ID.data)+" has been deleted","success")
+		if(not deleteForm.moreThanOneEntry.data):
+			return redirect(url_for('deleteEntry'))
+		else:
+			return redirect(url_for('deleteEntry'))
+	return render_template('deleteEntry.html',title="Delete entry",deleteForm=deleteForm,rows=rows)
+
+	# 	db.session.add(entry)
+	# 	db.session.commit()
+	# 	flash("Entry has been added","success")
+	# 	if(not deleteForm.moreThanOneEntry.data):
+	# 		return redirect(url_for('home'))
+	# 	else:
+	# 		return redirect(url_for('newEntry'))
+	# rows=Entry.query.all()
+	# # flash(deleteForm.ID.data)
+	# return render_template('newEntry.html',title="new",form=deleteForm,rows=rows)
+
+	# return render_template('home.html',title='Welcome',rows=rows,form=form)

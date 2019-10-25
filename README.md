@@ -14,8 +14,21 @@
 
 ```
 # SE-Project
-Flask Pharmacy stock manager website with an admin system.
+> Flask Pharmacy stock manager website with an admin system.
 
+SE Project done by Mayank, [Rukma](https://github.com/rukmakeny), Gautami, Kshitij, Tejasi.
+
+## Technology Stack:
+- ### Frontend:
+  - HTML, CSS, Bootstrap 4 & JavaScript.
+- ### Backend:
+  - Python, Flask
+- ### Database:
+  - SQLite
+
+## Setting Up:
+- Run `pip install -r requirements.txt`
+- Run `python run.py`
 
 # Further Work
 

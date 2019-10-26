@@ -16,7 +16,7 @@
 # SE-Project
 > Flask Pharmacy stock manager website with an admin system.
 
-SE Project done by Mayank, [Rukma](https://github.com/rukmakeny), [Gautami](https://github.com/GAUTAMIVH), Kshitij, Tejasi.
+SE Project done by [Mayank](https://github.com/MayankShirodkar), [Rukma](https://github.com/rukmakeny), [Gautami](https://github.com/GAUTAMIVH), Kshitij, Tejasi.
 
 ## Technology Stack:
 - ### Frontend:

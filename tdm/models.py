@@ -18,3 +18,13 @@ class Admin(db.Model,UserMixin):
 	def get_id(self):
 		return self.ID
 
+class Entry(db.Model):
+	ID=db.Column(db.Integer,primary_key=True)
+	phone_num=db.Column(db.Integer,unique=True,nullable=False)
+	name=db.Column(db.String(50),unique=False,nullable=False)
+	address=db.Column(db.String(50),unique=False,nullable=False)
+	last_edited=db.Column(db.DateTime,nullable=False,default=datetime.utcnow())
+	def __repre__(self):
+		return f'Entry("{self.ID}",{self.name})'
+
+

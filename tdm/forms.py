@@ -47,7 +47,7 @@ class NewEntryForm(FlaskForm):
 		phone_len=len(str(phone_num.data))
 		if(phone_len>11 or phone_len <8):
 			raise ValidationError('Invalid Phone number')
-		entry=db.session.query(Entry.phone_num).filter_by(phone_num=phone_num.data)
+		entry=db.session.query(Entry.phone_num).filter_by(phone_num=phone_num.data).first()
 		if(entry):
 			raise ValidationError('Phone Number already exists in directory. \nPlease ask an admin to edit the entry if necessary.')
 class EditEntryForm(FlaskForm):
@@ -62,6 +62,6 @@ class EditEntryForm(FlaskForm):
 		if(phone_len>11 or phone_len <8):
 			raise ValidationError('Invalid Phone number')
 		def validate_ID(self,ID):
-			entry=db.session.query(Entry.ID).filter_by(ID=ID.data)
-			if(type(entry)!=type([1])):
+			entry=db.session.query(Entry.ID).filter_by(ID=ID.data).first()
+			if(not entry):
 				raise ValidationError("No such ID exists in directory")
